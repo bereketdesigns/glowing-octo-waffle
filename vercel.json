@@ -1,0 +1,58 @@
+{
+  "version": 2,
+  "scope": "telegram-designer-mini-app",
+  "installCommand": "npm install --legacy-peer-deps",
+  "buildCommand": "npm run build",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/backend/src/index.ts"
+    },
+    {
+      "source": "/bot/(.*)",
+      "destination": "/bot/src/index.ts"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/frontend/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+    },
+    {
+      "source": "/bot/(.*)",
+      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+    }
+  ],
+  "builds": [
+    {
+      "src": "backend/src/index.ts",
+      "use": "@vercel/node",
+      "config": { "includeFiles": [".env"] }
+    },
+    {
+      "src": "bot/src/index.ts",
+      "use": "@vercel/node",
+      "config": { "includeFiles": [".env"] }
+    },
+    {
+      "src": "frontend/index.html",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "frontend/dist" }
+    }
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "github": true,
+      "gitlab": false,
+      "bitbucket": false
+    }
+  }
+}

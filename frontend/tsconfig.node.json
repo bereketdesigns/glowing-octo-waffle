@@ -1,0 +1,32 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": false, // <--- SET TO false or remove. It's often default false.
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true, // <--- This should ideally be 'true' for frontend development, as Vite handles actual JS emit.
+                     // Let's set it to true here for frontend to allow allowImportingTsExtensions if needed,
+                     // but the current fix removes the need for it.
+    "jsx": "react-jsx",
+    "composite": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src", "tailwind.config.js"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
